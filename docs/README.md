@@ -23,7 +23,7 @@ The Power can create the following on a blank appliance or organization in <=30 
 * [Branch protection](https://docs.github.com/en/github/administering-a-repository/about-protected-branches) rules on branch `main`.
 * [*CODEOWNERS*](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners) file configured for the *README.md* and `.gitattributes` files.
 * An [Issue](https://github.com/features/issues).
-* A [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) with a the code owner requested for review. 
+* A [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) with a the code owner requested for review.
 * A manifest file for a package manager file with a vulnerability to trigger [Dependabot](https://docs.github.com/en/code-security/dependabot)
 * A [webhook](https://docs.github.com/en/developers/webhooks-and-events/about-webhooks) on *testrepo* that outputs to it's own [smee.io](https://smee.io) url.
 * A [Release](https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository).
@@ -64,7 +64,7 @@ base_branch=main
 The use of `kv` pairs in `.gh-api-examples.conf` provides maximum flexibility and simplicity. It allows the configuration file to provide the basic descriptors for other more advanced tools like Apache JMeter or [hurl](https://hurl.dev/)
 
 ##### Hurl using the `.gh-api-examples.conf file`
-[hurl-repo-characteristics.sh](https://github.com/gm3dmo/the-power/blob/main/hurl-repo-characteristics.sh) shows [hurl](https://hurl.dev) provisioned with values `.gh-api-examples.conf`: 
+[hurl-repo-characteristics.sh](https://github.com/gm3dmo/the-power/blob/main/hurl-repo-characteristics.sh) shows [hurl](https://hurl.dev) provisioned with values `.gh-api-examples.conf`:
 
 ```
 hurl --test --variables-file .gh-api-examples.conf --json hurl-tests/repo-characteristics.hurl | jq -r
@@ -88,4 +88,4 @@ jsonpath "$.full_name" == "{{ org}}/{{ repo }}"
 ```
 
 ### Why The Power
-There are lots of great tools like [Postman](https://www.postman.com/), [JMeter](https://jmeter.apache.org/) for interacting with API's and building testsuites and many of the latest API's come with their own interactive documentation built-in like the [swagger petstore](https://petstore.swagger.io/). The Power is a solution for times and places where those tools just aren't available. 
+There are lots of great tools like [Postman](https://www.postman.com/), [JMeter](https://jmeter.apache.org/) for interacting with API's and building testsuites and many of the latest API's come with their own interactive documentation built-in like the [swagger petstore](https://petstore.swagger.io/). The Power is a solution for times and places where those tools just aren't available.

@@ -71,6 +71,7 @@ enterprise="${enterprise_name}"
 ### [Organization](https://docs.github.com/en/rest/orgs)
 # https://docs.github.com/en/organizations
 org="${org}"
+owner="${org}"
 org_secret_name="ORGANIZATION_SECRET001"
 org_owner="${org_owner}"
 org_members="${org_members}"
@@ -124,6 +125,7 @@ required_approving_reviewers=1
 required_status_check_name="ci-test/this-check-is-required"
 enforce_admins="false"
 base_branch=${base_branch}
+delete_branch_on_merge=${delete_branch_on_merge}
 
 
 ### [Commits](https://docs.github.com/en/rest/commits/commits)
@@ -211,6 +213,11 @@ runner_version=${runner_version}
 runner_os=${runner_os}
 runner_platform=${runner_platform}
 
+### [gh cli](https://cli.github.com/manual/gh_api)
+preferred_client="${preferred_client}"
+gh_custom_flags="--paginate --hostname ${hostname}"
+gh_custom_headers=""
+
 ### [Curl](https://curl.se/)
 # latest version of curl is recommended.
 # curl flags for timing testing etc.
@@ -225,6 +232,7 @@ curl_custom_flags="${curl_custom_flags}"
 # mostly used for testing things on GHES.
 number_of_orgs=${number_of_orgs}
 number_of_repos=${number_of_repos}
+number_of_teams=${number_of_teams}
 number_of_branches=${number_of_branches}
 repo_prefix="testrepo"
 org_prefix="testorg"
@@ -355,6 +363,7 @@ pool_size=10
         "org": args.org,
         "enterprise_name": args.enterprise_name,
         "base_branch": args.base_branch,
+        "delete_branch_on_merge": args.delete_branch_on_merge,
         "pr_approver_token": args.pr_approver_token,
         "default_app_id": args.app_id,
         "default_installation_id": args.installation_id,
@@ -373,9 +382,11 @@ pool_size=10
         "runner_platform": args.runner_platform,
         "number_of_orgs": args.number_of_orgs,
         "number_of_repos": args.number_of_repos,
+        "number_of_teams": args.number_of_teams,
         "number_of_branches": args.number_of_branches,
         "curl_custom_flags": args.curl_custom_flags,
         "allow_auto_merge": args.allow_auto_merge,
+        "preferred_client": args.preferred_client,
     }
 
     out_filename = ".gh-api-examples.conf"
@@ -529,6 +540,13 @@ if __name__ == "__main__":
         help="The number of repos for the bulk creators to create.",
     )
     parser.add_argument(
+        "--number-of-teams",
+        action="store",
+        dest="number_of_teams",
+        default=3,
+        help="The number of teams for the bulk creators to create.",
+    )
+    parser.add_argument(
         "--number-of-branches",
         action="store",
         dest="number_of_branches",
@@ -564,6 +582,13 @@ if __name__ == "__main__":
         help="allow auto merge"
     )
     parser.add_argument(
+        "--delete-branch-on-merge",
+        action="store",
+        dest="delete_branch_on_merge",
+        default="true",
+        help="delete branch on merge"
+    )
+    parser.add_argument(
         "--enterprise-name",
         action="store",
         dest="enterprise_name",
@@ -576,6 +601,13 @@ if __name__ == "__main__":
         dest="pr_approver_token",
         default="replace_with_a_PAT",
         help="The PAT of a pr approver.",
+    )
+    parser.add_argument(
+        "--preferred_client",
+        action="store",
+        dest="preferred_client",
+        default="curl",
+        help="The preferred client program to use for interaction with the API's. Valid values are gh or curl.",
     )
     parser.add_argument(
         "--custom-curl-flags",
